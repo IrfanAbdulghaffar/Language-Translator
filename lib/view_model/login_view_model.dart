@@ -12,15 +12,18 @@ class AuthenticationViewModel extends ChangeNotifier{
   bool get loading => _loading;
   bool _signupLoading = false;
   bool get signupLoading => _signupLoading;
+
   setLoading(bool value){
     _loading = value;
     notifyListeners();
   }
+
   setSignupLoading(bool value){
     _signupLoading = value;
     notifyListeners();
   }
-Future<void> signupWithEmailandPassword(BuildContext context,{required String name,required String userName,required String email,required String address,required String phone, required String password})async {
+
+  Future<void> signupWithEmailandPassword(BuildContext context,{required String name,required String userName,required String email,required String address,required String phone, required String password})async {
   setSignupLoading(true);
   try {
     // UserCredential userCredential = await FirebaseAuth.instance
@@ -53,6 +56,7 @@ Future<void> signupWithEmailandPassword(BuildContext context,{required String na
     }
   }
 }
+
   Future<void> loginWithEmailandPassword(String email, String password, BuildContext context)async {
     setLoading(true);
     try {
@@ -60,7 +64,7 @@ Future<void> signupWithEmailandPassword(BuildContext context,{required String na
       setLoading(false);
       Navigator.pushNamed(context, RoutesNames.home);
       if (kDebugMode) {
-        Utils.flushBarErrorMessage('Login successfully', context);
+        Utils.flushBarSuccessMessage('Login successfully', context);
         print(userCredential.user.toString());
       }
     } catch (error) {
