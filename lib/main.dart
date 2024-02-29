@@ -4,15 +4,17 @@ import 'package:provider/provider.dart';
 import 'package:translator_app/firebase_options.dart';
 import 'package:translator_app/utils/routes/routes.dart';
 import 'package:translator_app/utils/routes/routes_names.dart';
+import 'package:translator_app/utils/shared_pref_instance.dart';
 import 'package:translator_app/view_model/login_view_model.dart';
 import 'package:translator_app/view_model/splash_screen_view_model.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
-options: DefaultFirebaseOptions.currentPlatform,
-);
+  await SharedPreference.instance.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

@@ -25,7 +25,7 @@ class _LoginViewState extends State<LoginView> {
     CustomTextFormField emailField = CustomTextFormField(text: 'email',controller: _emailController,);
     CustomTextFormField passwordField = CustomTextFormField(text: 'password',controller: _passwordController,);
     return Scaffold(
-backgroundColor: AppColors.whiteColor.withOpacity(0.9),
+backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -35,19 +35,21 @@ backgroundColor: AppColors.whiteColor.withOpacity(0.9),
                 SizedBox(
                   height: height *.1,
                 ),
-                Center(child: Image.asset('assets/images/translateLogo.png',height: 82,)),
+                Hero(
+                    tag: "icon",
+                    child: Image.asset('assets/images/translateLogo.png',height: 82,)),
                 SizedBox(height: height *.1,),
                 emailField,
                 const SizedBox(height: 15,),
                 passwordField,
-                SizedBox(height: height *.1,),
+                SizedBox(height: height *.05,),
                 RoundButton(title: 'Login',loading: authViewModel.loading, onPress: (){
                   authViewModel.loginWithEmailandPassword(_emailController.text.toString(), _passwordController.text.toString(), context);
                 },),
                  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("don't have account?",style: TextStyle(fontSize: 17),),
+                    const Text("don't have account?  ",style: TextStyle(fontSize: 17),),
                     ShaderMask(
                      blendMode: BlendMode.srcIn,
                         shaderCallback: (Rect bounds)=> myLinearGradient.createShader(bounds),

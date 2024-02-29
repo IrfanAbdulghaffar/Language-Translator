@@ -4,19 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:translator_app/resources/components/app_colors.dart';
 
 class Utils{
-  static void flushbarErrorMessage(String message, BuildContext context){
+  static void flushBarErrorMessage(String message, BuildContext context){
     showFlushbar(context: context, flushbar: Flushbar(
       message: message,
       backgroundColor: AppColors.redColor,
       duration: const Duration(seconds: 3),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
       borderRadius: BorderRadius.circular(15),
       forwardAnimationCurve: Curves.fastOutSlowIn,
       reverseAnimationCurve: Curves.easeInOut,
       icon: const Icon(Icons.error,color: Colors.white,),
       positionOffset: 20,
-      flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: FlushbarPosition.BOTTOM,
+    )..show(context));
+  }
+
+  static void flushBarSuccessMessage(String message, BuildContext context){
+    showFlushbar(context: context, flushbar: Flushbar(
+      message: message,
+      backgroundColor: AppColors.greenColor,
+      duration: const Duration(seconds: 5),
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+      borderRadius: BorderRadius.circular(15),
+      forwardAnimationCurve: Curves.fastOutSlowIn,
+      reverseAnimationCurve: Curves.easeInOut,
+      icon: const Icon(Icons.done,color: Colors.white,),
+      positionOffset: 20,
+      flushbarPosition: FlushbarPosition.BOTTOM,
     )..show(context));
   }
 }

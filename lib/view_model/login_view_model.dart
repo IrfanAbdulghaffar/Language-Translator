@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:translator_app/utils/general_utils.dart';
 import 'package:translator_app/utils/routes/routes_names.dart';
+
+import '../utils/shared_pref_instance.dart';
 
 class AuthenticationViewModel extends ChangeNotifier{
   bool _loading = false;
@@ -17,22 +20,35 @@ class AuthenticationViewModel extends ChangeNotifier{
     _signupLoading = value;
     notifyListeners();
   }
-Future<void> signupWithEmailandPassword(String email, String password, BuildContext context)async {
+Future<void> signupWithEmailandPassword(BuildContext context,{required String name,required String userName,required String email,required String address,required String phone, required String password})async {
   setSignupLoading(true);
   try {
     // UserCredential userCredential = await FirebaseAuth.instance
-    //     .signInWithEmailAndPassword(email: email, password: password);
+    // .signInWithEmailAndPassword(email: email, password: password);
     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+
+    // Save additional user information to the real-time database
+    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+    SharedPreference.instance.setData(key: "user_id",value:userCredential.user!.uid);
+    databaseReference.child('users').child(userCredential.user!.uid).set({
+      'name': name,
+      'userName': userName,
+      'email': email,
+      'address': address,
+      'phone': phone,
+    });
+
     setSignupLoading(false);
+
     Navigator.pushNamed(context, RoutesNames.home);
     if (kDebugMode) {
-      Utils.flushbarErrorMessage('Signup successfully', context);
+      Utils.flushBarSuccessMessage('Signup successfully', context);
       print(userCredential.user.toString());
     }
   } catch (error) {
     setSignupLoading(false);
     if (kDebugMode) {
-      Utils.flushbarErrorMessage(error.toString(), context);
+      Utils.flushBarErrorMessage(error.toString(), context);
       print(error.toString());
     }
   }
@@ -44,15 +60,46 @@ Future<void> signupWithEmailandPassword(String email, String password, BuildCont
       setLoading(false);
       Navigator.pushNamed(context, RoutesNames.home);
       if (kDebugMode) {
-        Utils.flushbarErrorMessage('Login successfully', context);
+        Utils.flushBarErrorMessage('Login successfully', context);
         print(userCredential.user.toString());
       }
     } catch (error) {
       setLoading(false);
       if (kDebugMode) {
-        Utils.flushbarErrorMessage(error.toString(), context);
+        Utils.flushBarErrorMessage(error.toString(), context);
         print(error.toString());
       }
     }
   }
+
+  Future<bool> updateProfile({
+    required String name,
+    required String userName,
+    required String email,
+    required String address,
+    required String phone,
+  }) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+        await databaseReference.child('users').child(user.uid).update({
+          'name': name,
+          'userName': userName,
+          'email': email,
+          'address': address,
+          'phone': phone,
+        });
+
+        return true; // Update successful
+      } else {
+        return false; // User is null, update failed
+      }
+    } catch (error) {
+      print('Error updating profile: $error');
+      return false; // Update failed
+    }
+  }
+
 }

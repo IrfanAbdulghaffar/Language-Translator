@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:translator_app/resources/components/app_colors.dart';
@@ -16,8 +14,11 @@ class SignupView extends StatefulWidget {
 }
 
 class _SignupViewState extends State<SignupView> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -27,7 +28,7 @@ class _SignupViewState extends State<SignupView> {
     LinearGradient myLinearGradient = AppColors.linearGradientColor();
     CustomTextFormField nameField = CustomTextFormField(
       text: 'Name',
-      controller: _userNameController,
+      controller: _nameController,
     );
     CustomTextFormField userNameField = CustomTextFormField(
       text: 'User name',
@@ -37,9 +38,13 @@ class _SignupViewState extends State<SignupView> {
       text: 'Email',
       controller: _emailController,
     );
+    CustomTextFormField addressField = CustomTextFormField(
+      text: 'Address',
+      controller: _addressController,
+    );
     CustomTextFormField phoneField = CustomTextFormField(
       text: 'Mobile No.',
-      controller: _emailController,
+      controller: _phoneController,
     );
     CustomTextFormField passwordField = CustomTextFormField(
       text: 'Password',
@@ -47,7 +52,7 @@ class _SignupViewState extends State<SignupView> {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.whiteColor.withOpacity(0.9),
+      backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -55,23 +60,26 @@ class _SignupViewState extends State<SignupView> {
             child: Column(
               children: [
                 SizedBox(
-                  height: height *.1,
+                  height: height *.05,
                 ),
-                Center(child: Image.asset('assets/images/translateLogo.png',height: 82,)),
-                SizedBox(height: height *.1,),
+                Hero(
+                  tag: "icon",
+                    child: Image.asset('assets/images/translateLogo.png',height: 82,)),
+                SizedBox(height: height *.05,),
                 nameField,
                 const SizedBox(height: 15,),
                 userNameField,
                 const SizedBox(height: 15,),
                 emailField,
                 const SizedBox(height: 15,),
+                addressField,
+                const SizedBox(height: 15,),
                 phoneField,
                 const SizedBox(height: 15,),
                 passwordField,
                 SizedBox(height: height *.05,),
                 RoundButton(title: 'Signup',loading: authViewModel.signupLoading,onPress: (){
-                  authViewModel.signupWithEmailandPassword(_emailController.text.toString(),
-                      _passwordController.text.toString(), context);
+                  authViewModel.signupWithEmailandPassword(name:_nameController.text.toString(),userName:_userNameController.text.toString(),email:_emailController.text.toString(),address:_addressController.text.toString(),phone:_phoneController.text.toString(),password: _passwordController.text.toString(), context);
                 }, ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

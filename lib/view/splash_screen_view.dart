@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     viewModel.navigateToNextScreen(context);
   }
   @override
@@ -35,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       alignment: Alignment.topRight,
                       child: Image.asset('assets/images/Ellipse2.png'),
                     ),
-                    Image.asset('assets/images/Ellipse1.png'),
+                    Hero(
+                        tag:"icon",
+                        child: Image.asset('assets/images/Ellipse1.png')),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
