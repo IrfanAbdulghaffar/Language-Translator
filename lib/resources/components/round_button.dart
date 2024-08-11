@@ -10,20 +10,20 @@ class RoundButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LinearGradient myLinearGradient = AppColors.linearGradientColor();
-    return  InkWell(
-      onTap: onPress,
-      child: Container(
-        height: 57,
-
-        margin: EdgeInsets.symmetric(horizontal: 57,vertical: 30),
-
-        decoration: BoxDecoration(
-          gradient: myLinearGradient,
-          borderRadius: BorderRadius.circular(15),
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 57,vertical: 30),
+      child: GestureDetector(
+        onTap: onPress,
+        child: Container(
+          height: 57,
+          decoration: BoxDecoration(
+            gradient: myLinearGradient,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(child:
+          loading ? const CircularProgressIndicator() :
+          Text(title,style: const TextStyle(color: AppColors.whiteColor,fontWeight: FontWeight.bold),),),
         ),
-        child: Center(child:
-        loading ? const CircularProgressIndicator() :
-        Text(title,style: const TextStyle(color: AppColors.whiteColor,fontWeight: FontWeight.bold),),),
       ),
     );
   }

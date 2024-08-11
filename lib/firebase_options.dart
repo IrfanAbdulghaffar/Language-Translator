@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,31 +49,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDwfDwTGLQn17raPK_6ZPC7xbOrsnyQj44',
-    appId: '1:199809536282:web:b861f199943e1955b39ca3',
-    messagingSenderId: '199809536282',
-    projectId: 'testing-cli-c57d9',
-    authDomain: 'testing-cli-c57d9.firebaseapp.com',
-    storageBucket: 'testing-cli-c57d9.appspot.com',
-    measurementId: 'G-68SG7JE1JT',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAGDhYcwp1Yjx5DgvVkMDjx7IQQjBKfBC4',
-    appId: '1:199809536282:android:d1f4a5ac166ba668b39ca3',
-    messagingSenderId: '199809536282',
-    projectId: 'testing-cli-c57d9',
-    storageBucket: 'testing-cli-c57d9.appspot.com',
+    apiKey: 'AIzaSyB9WbPmczF1gwrW63PmFCz0YW0GQqMiwQs',
+    appId: '1:660433077969:android:ea88776027c8f1316d67f0',
+    messagingSenderId: '660433077969',
+    projectId: 'fyp-translator',
+    storageBucket: 'fyp-translator.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDEhDcx11RRCwxiT7XErfIbag94KZA5G4s',
-    appId: '1:199809536282:ios:92327d4a19099138b39ca3',
-    messagingSenderId: '199809536282',
-    projectId: 'testing-cli-c57d9',
-    storageBucket: 'testing-cli-c57d9.appspot.com',
-    iosClientId: '199809536282-bhhr01o5577cttr91e6krbg3320mc81m.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAwG3u3-oVBP_v5-Amy5a8cC7KyKD8E3Ys',
+    appId: '1:660433077969:ios:26495a3e414854896d67f0',
+    messagingSenderId: '660433077969',
+    projectId: 'fyp-translator',
+    storageBucket: 'fyp-translator.appspot.com',
     iosBundleId: 'com.example.translatorApp',
   );
 }

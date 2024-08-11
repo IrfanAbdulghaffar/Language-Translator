@@ -8,7 +8,7 @@ class SplashScreenViewModel extends ChangeNotifier{
     BuildContext localContext = context;
     String? userId=SharedPreference.instance.getData("user_id");
     await Future.delayed(const Duration(seconds: 3));
-    if(userId!=null||userId!=""){
+    if(userId!=null&&userId!=""){
       Navigator.pushReplacementNamed(localContext, RoutesNames.home);
     }else{
       Navigator.pushReplacementNamed(localContext, RoutesNames.login);
