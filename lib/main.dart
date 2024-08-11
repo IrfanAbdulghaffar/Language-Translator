@@ -7,6 +7,7 @@ import 'package:translator_app/utils/routes/routes_names.dart';
 import 'package:translator_app/utils/shared_pref_instance.dart';
 import 'package:translator_app/view_model/login_view_model.dart';
 import 'package:translator_app/view_model/splash_screen_view_model.dart';
+import 'package:flutter_waya/flutter_waya.dart';
 
 
 void main() async {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthenticationViewModel()),
       ],
       child: MaterialApp(
+        navigatorKey: GlobalWayUI().navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(

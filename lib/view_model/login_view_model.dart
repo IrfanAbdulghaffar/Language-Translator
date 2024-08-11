@@ -31,7 +31,7 @@ class AuthenticationViewModel extends ChangeNotifier{
     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
     // Save additional user information to the real-time database
-    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+    DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
     SharedPreference.instance.setData(key: "user_id",value:userCredential.user!.uid);
     databaseReference.child('users').child(userCredential.user!.uid).set({
       'name': name,
@@ -39,10 +39,15 @@ class AuthenticationViewModel extends ChangeNotifier{
       'email': email,
       'address': address,
       'phone': phone,
+    }).then((_) {
+      // Data has been written successfully
+      print("User data has been saved to the database.");
+    }).catchError((error) {
+      // Handle any errors that occur during the write operation
+      print("Error writing user data: $error");
     });
 
     setSignupLoading(false);
-
     Navigator.pushNamed(context, RoutesNames.home);
     if (kDebugMode) {
       Utils.flushBarSuccessMessage('Signup successfully', context);

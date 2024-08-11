@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:translator_app/resources/components/app_colors.dart';
 import 'package:translator_app/view_model/splash_screen_view_model.dart';
@@ -45,10 +44,12 @@ class _SplashScreenState extends State<SplashScreen> {
                       children: [
                         Center(child: Image.asset('assets/images/translateLogo.png',height: 82,)),
                         const Gap(20),
-                        Text('TRANSLATE ON THE GO',style: GoogleFonts.roboto(
+                        const Text('TRANSLATE ON THE GO',
+                          style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
-                        ),),
+                          ),
+                        ),
                       ],
                     )
                   ],
